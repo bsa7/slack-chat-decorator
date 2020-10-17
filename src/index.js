@@ -16,7 +16,7 @@ const chatUpdater = new ChatUpdater({
 })
 
 app.post('/message.event', (request, response) => {
-  const { challenge, event: { channel, edited, ts, text, user } } = request.body
+  const { challenge, event: { channel, edited, ts, text, user } = {} } = request.body
   console.log('#20', { challenge, channel, ts, text, user, edited, request_body: request.body })
   if (edited || !text) {
     response.send({ challenge, flag: 'ignored' })
