@@ -3,6 +3,7 @@ const bodyParser = require('body-parser')
 const { ChatDecorator } = require('./lib/chat-decorator')
 const { ChatUpdater } = require('./lib/chat-updater')
 const { InstallProvider } = require('@slack/oauth')
+const Store = require("jfs")
 const app = express()
 
 app.use(bodyParser.json())
@@ -37,10 +38,28 @@ app.post('/message.event', (request, response) => {
 //   response.redirect(redirectUrl)
 // })
 
+const myDB = new Store('data', { type: 'single' })
+
 const installer = new InstallProvider({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
-  stateSecret: 'my-state-secret'
+  stateSecret: 'my-state-secret',
+  installationStore: {
+    // takes in an installation object as an argument
+    // returns nothing
+    storeInstallation: (installation) => {
+      // replace myDB.set with your own database or OEM setter
+      myDB.save(installation.team.id, installation)
+      return;
+    },
+    // takes in an installQuery as an argument
+    // installQuery = {teamId: 'string', enterpriseId: 'string', userId: string, conversationId: 'string'};
+    // returns installation object from database
+    fetchInstallation: (installQuery) => {
+      // replace myDB.get with your own database or OEM getter
+      return myDB.get(installQuery.teamId)
+    },
+  },
 })
 
 installer.generateInstallUrl({
