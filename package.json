@@ -1,0 +1,29 @@
+{
+  "name": "chat-decorator",
+  "version": "1.0.0",
+  "description": "Converts slack input, based on regular expressions",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/r72cccp/slack-chat-decorator.git"
+  },
+  "keywords": [
+    "slack",
+    "regexp",
+    "express",
+    "nodejs"
+  ],
+  "author": "Sergio Belevskij",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/r72cccp/slack-chat-decorator/issues"
+  },
+  "homepage": "https://github.com/r72cccp/slack-chat-decorator#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
