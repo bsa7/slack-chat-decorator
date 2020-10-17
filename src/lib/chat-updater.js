@@ -6,15 +6,14 @@ class ChatUpdater {
     this.slack = new Slack(token)
   }
 
-  run = ({ channel, text, ts, user }) => {
-    const options = { channel, text, token: this.token, ts, as_user: user }
-
+  run = ({ channel, text, ts }) => {
     this.slack.api('chat.update', {
       as_user: true,
       channel,
+      text,
       ts,
    }, (error, response) => {
-      console.log('#17', { error, response })
+      console.log('#16', { channel, text, ts, error, response })
    })
   }
 }
