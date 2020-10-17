@@ -16,11 +16,15 @@ const chatUpdater = new ChatUpdater({
 })
 
 app.post('/', (req, res) => {
-  const { channel, ts, text, user, edited } = req.body
-  if (edited) return
+  const { challenge, channel, ts, text, user, edited } = req.body
+  if (edited) {
+    res.send({ challenge })
+    return
+  }
 
   const textDecorated = chatDecorator.decorate(text)
   chatUpdater.run({ channel, text: textDecorated, ts, user })
+  res.send({ challenge })
 })
 
 const PORT = process.env.PORT || 3000
