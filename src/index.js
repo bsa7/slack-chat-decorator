@@ -27,7 +27,12 @@ app.post('/message.event', (request, response) => {
 
 app.get('/oauth.redirect', (request, response) => {
   console.log('#29 redirected')
-  response.redirect(`${process.env.SLACK_OAUTH_REDIRECT_URL}?client_id=${process.env.SLACK_CLIENT_ID}`)
+  const redirectUrl = [
+    process.env.SLACK_OAUTH_REDIRECT_URL,
+    `client_id=${process.env.SLACK_CLIENT_ID}&`,
+    'scopes=chat:write:workspace'
+  ].join('')
+  response.redirect()
 })
 
 const PORT = process.env.PORT || 3000
