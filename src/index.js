@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const { ChatDecorator } = require('./lib/chat-decorator')
 const { ChatUpdater } = require('./lib/chat-updater')
+const { InstallProvider } = require('@slack/oauth')
 const app = express()
 
 app.use(bodyParser.json())
@@ -25,15 +26,30 @@ app.post('/message.event', (request, response) => {
   response.send({ challenge, flag: 'updated' })
 })
 
+// app.get('/oauth.redirect', (request, response) => {
+//   console.log('#29 redirected')
+//   const redirectUrl = [
+//     process.env.SLACK_OAUTH_REDIRECT_URL,
+//     `?client_id=${process.env.SLACK_CLIENT_ID}`,
+//     '&scope=chat:write:user',
+//     `&redirect_uri=${process.env.OAUTH_REDIRECT_CALLBACK}`
+//   ].join('')
+//   response.redirect(redirectUrl)
+// })
+
+const installer = new InstallProvider({
+  clientId: process.env.SLACK_CLIENT_ID,
+  clientSecret: process.env.SLACK_CLIENT_SECRET,
+  stateSecret: 'my-state-secret'
+})
+
+installer.generateInstallUrl({
+  // Add the scopes your app needs
+  scopes: ['chat:write:user']
+})
+
 app.get('/oauth.redirect', (request, response) => {
-  console.log('#29 redirected')
-  const redirectUrl = [
-    process.env.SLACK_OAUTH_REDIRECT_URL,
-    `?client_id=${process.env.SLACK_CLIENT_ID}`,
-    '&scope=chat:write:user',
-    `&redirect_uri=${process.env.OAUTH_REDIRECT_CALLBACK}`
-  ].join('')
-  response.redirect(redirectUrl)
+  installer.handleCallback(request, response)
 })
 
 const PORT = process.env.PORT || 3000
