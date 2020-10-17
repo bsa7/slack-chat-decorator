@@ -38,13 +38,11 @@ app.post('/message.event', (request, response) => {
 //   response.redirect(redirectUrl)
 // })
 
-const myDB = new Store('data', { type: 'single' })
-myDB.save('testtest', 'fwerfwerfer', (data) => {
-  console.log('#43', { data })
-  myDB.get('testtest', (data) => {
-    console.log('#45', { data })
-  })
-})
+const myDB = new Store('data')
+const key = 'testtest'
+myDB.saveSync(key, 'fwerfwerfer')
+const storedValue = myDB.getSync(key)
+console.log('#45', { key, storedValue })
 const ASCII = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const randomString = ({ length = 6, chars = ASCII } = {}) => {
   let result = ''
