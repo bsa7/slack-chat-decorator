@@ -39,6 +39,14 @@ app.post('/message.event', (request, response) => {
 // })
 
 const myDB = new Store('data', { type: 'single' })
+const ASCII = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const randomString = ({ length = 6, chars = ASCII } = {}) => {
+  let result = ''
+  for (let i = length; i > 0; --i) {
+    result += chars[Math.floor(Math.random() * chars.length)]
+  }
+  return result
+}
 
 const installer = new InstallProvider({
   clientId: process.env.SLACK_CLIENT_ID,
@@ -53,7 +61,26 @@ const installer = new InstallProvider({
       return myDB.getSync(installQuery.teamId)
     },
   },
-})
+  stateStore: {
+    // generateStateParam's first argument is the entire InstallUrlOptions object which was passed into generateInstallUrl method
+    // the second argument is a date object
+    // the method is expected to return a string representing the state
+    randomState: randomString(),
+    generateStateParam: (installUrlOptions, date) => {
+      // generate a random string to use as state in the URL
+      // save installOptions to cache/db
+      myDB.save(this.randomState, installUrlOptions)
+      // return a state string that references saved options in DB
+      return this.randomState
+    },
+    // verifyStateParam's first argument is a date object and the second argument is a string representing the state
+    // verifyStateParam is expected to return an object representing installUrlOptions
+    verifyStateParam:  (date, state) => {
+      // fetch saved installOptions from DB using state reference
+      const installUrlOptions = myDB.getSync(this.randomState)
+      return installUrlOptions
+    }
+  })
 
 installer.generateInstallUrl({
   scopes: ['chat:write:user']
