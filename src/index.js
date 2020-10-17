@@ -27,7 +27,7 @@ app.post('/message.event', (request, response) => {
 
 app.get('/oauth.redirect', (request, response) => {
   console.log('#29', { request_body: request.body, request, response })
-  response.redirect(process.env.SLACK_OAUTH_REDIRECT_URL)
+  response.redirect(`${process.env.SLACK_OAUTH_REDIRECT_URL}?clientId=${process.env.CLIENT_ID}`)
 })
 
 const PORT = process.env.PORT || 3000
