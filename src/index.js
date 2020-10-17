@@ -15,8 +15,8 @@ const chatUpdater = new ChatUpdater({
   token: process.env.TOKEN,
 })
 
-app.post('/', (request, response) => {
-  const { challenge, channel, ts, text, user, edited } = request.body
+app.post('/message.event', (request, response) => {
+  const { challenge, event: { channel, edited, ts, text, user } } = request.body
   console.log('#20', { challenge, channel, ts, text, user, edited, request_body: request.body })
   if (edited || !text) {
     response.send({ challenge, flag: 'ignored' })
