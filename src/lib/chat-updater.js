@@ -13,7 +13,7 @@ class ChatUpdater {
       channel,
       ts,
    }, (error, response) => {
-      console.log('#17', { response })
+      console.log('#17', { error, response })
    })
   }
 }
