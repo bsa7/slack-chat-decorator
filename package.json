@@ -24,6 +24,8 @@
   },
   "homepage": "https://github.com/r72cccp/slack-chat-decorator#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "slack-node": "^0.1.8"
   }
 }
