@@ -75,12 +75,13 @@ const installer = new InstallProvider({
     },
     // verifyStateParam's first argument is a date object and the second argument is a string representing the state
     // verifyStateParam is expected to return an object representing installUrlOptions
-    verifyStateParam:  (date, state) => {
+    verifyStateParam: (date, state) => {
       // fetch saved installOptions from DB using state reference
       const installUrlOptions = myDB.getSync(this.randomState)
       return installUrlOptions
     }
-  })
+  }
+})
 
 installer.generateInstallUrl({
   scopes: ['chat:write:user']
