@@ -29,8 +29,8 @@ app.get('/oauth.redirect', (request, response) => {
   console.log('#29 redirected')
   const redirectUrl = [
     process.env.SLACK_OAUTH_REDIRECT_URL,
-    `client_id=${process.env.SLACK_CLIENT_ID}&`,
-    'scopes=chat:write:workspace'
+    `?client_id=${process.env.SLACK_CLIENT_ID}`,
+    '&scopes=chat:write:workspace'
   ].join('')
   response.redirect(redirectUrl)
 })
