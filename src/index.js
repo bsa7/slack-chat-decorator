@@ -30,7 +30,7 @@ app.get('/oauth.redirect', (request, response) => {
   const redirectUrl = [
     process.env.SLACK_OAUTH_REDIRECT_URL,
     `?client_id=${process.env.SLACK_CLIENT_ID}`,
-    '&scopes=chat%3Awrite%3Auser'
+    '&scope=chat%3Awrite%3Auser'
   ].join('')
   response.redirect(redirectUrl)
 })
