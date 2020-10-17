@@ -14,7 +14,7 @@ const chatUpdater = new ChatUpdater({ token: process.env.TOKEN })
 
 app.post('/message.event', (request, response) => {
   const { challenge, event: { channel, edited, ts, text, user } = {} } = request.body
-  console.log('#20', { challenge, channel, ts, text, user, edited, request_body: request.body })
+  console.log('#17', { challenge, channel, ts, text, user, edited, request_body: request.body })
   if (edited || !text) {
     response.send({ challenge, flag: 'ignored' })
     return
@@ -23,6 +23,10 @@ app.post('/message.event', (request, response) => {
   const textDecorated = chatDecorator.decorate(text)
   chatUpdater.run({ channel, text: textDecorated, ts, user })
   response.send({ challenge, flag: 'updated' })
+})
+
+app.post('/oauth.redirect', (request, response) => {
+  console.log('#29', { request_body: request.body })
 })
 
 const PORT = process.env.PORT || 3000
