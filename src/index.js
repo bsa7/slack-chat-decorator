@@ -45,25 +45,17 @@ const installer = new InstallProvider({
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   stateSecret: 'my-state-secret',
   installationStore: {
-    // takes in an installation object as an argument
-    // returns nothing
     storeInstallation: (installation) => {
-      // replace myDB.set with your own database or OEM setter
       myDB.save(installation.team.id, installation)
-      return;
+      return
     },
-    // takes in an installQuery as an argument
-    // installQuery = {teamId: 'string', enterpriseId: 'string', userId: string, conversationId: 'string'};
-    // returns installation object from database
     fetchInstallation: (installQuery) => {
-      // replace myDB.get with your own database or OEM getter
-      return myDB.get(installQuery.teamId)
+      return myDB.getSync(installQuery.teamId)
     },
   },
 })
 
 installer.generateInstallUrl({
-  // Add the scopes your app needs
   scopes: ['chat:write:user']
 })
 
