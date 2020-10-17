@@ -68,10 +68,10 @@ const installer = new InstallProvider({
     // the second argument is a date object
     // the method is expected to return a string representing the state
     generateStateParam: (installUrlOptions, date) => {
-      console.log('generateStateParam#69', { installUrlOptions, date })
       // generate a random string to use as state in the URL
       // save installOptions to cache/db
       const randomState = randomString()
+      console.log('generateStateParam#69', { installUrlOptions, date, randomState })
       myDB.save(randomState, installUrlOptions)
       // return a state string that references saved options in DB
       return randomState
