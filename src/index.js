@@ -32,7 +32,7 @@ app.get('/oauth.redirect', (request, response) => {
     `client_id=${process.env.SLACK_CLIENT_ID}&`,
     'scopes=chat:write:workspace'
   ].join('')
-  response.redirect()
+  response.redirect(redirectUrl)
 })
 
 const PORT = process.env.PORT || 3000
