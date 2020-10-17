@@ -38,7 +38,7 @@ app.post('/message.event', (request, response) => {
 //   response.redirect(redirectUrl)
 // })
 
-const myDB = new Store('./tmp/data.json')
+const myDB = new Store('../tmp/data.json')
 const key = 'testtest'
 myDB.saveSync(key, 'fwerfwerfer')
 const storedValue = myDB.getSync(key)
