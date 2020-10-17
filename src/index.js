@@ -39,9 +39,12 @@ app.post('/message.event', (request, response) => {
 // })
 
 const myDB = new Store('data', { type: 'single' })
-myDB.saveSync('testtest', 'fwerfwerfer')
-const storedValue = myDB.getSync('testtest')
-console.log('#44', { storedValue })
+myDB.save('testtest', 'fwerfwerfer', (data) => {
+  console.log('#43', { data })
+  myDB.get('testtest', (data) => {
+    console.log('#45', { data })
+  })
+})
 const ASCII = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const randomString = ({ length = 6, chars = ASCII } = {}) => {
   let result = ''
