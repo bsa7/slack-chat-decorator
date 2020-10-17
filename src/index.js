@@ -25,7 +25,7 @@ app.post('/message.event', (request, response) => {
   response.send({ challenge, flag: 'updated' })
 })
 
-app.post('/oauth.redirect', (request, response) => {
+app.get('/oauth.redirect', (request, response) => {
   console.log('#29', { request_body: request.body })
 })
 
