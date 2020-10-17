@@ -1,8 +1,8 @@
 const Slack = require('slack-node')
 
 class ChatUpdater {
-  constructor({ uri, token }) {
-    this.uri = uri
+  constructor({ token }) {
+    console.log('ChatUpdater#6', { token })
     this.slack = new Slack(token)
   }
 
@@ -10,6 +10,7 @@ class ChatUpdater {
     const options = { channel, text, token: this.token, ts, as_user: user }
 
     this.slack.api('chat.update', {
+      as_user: true,
       channel,
       ts,
    }, (error, response) => {

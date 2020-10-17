@@ -10,10 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 const chatDecorator = new ChatDecorator({
   '\\b(ASMS\\-\\d+)\\b': '[$1](https://jira.funbox.ru/browse/$1)',
 })
-const chatUpdater = new ChatUpdater({
-  uri: process.env.CHAT_UPDATE_URL,
-  token: process.env.TOKEN,
-})
+const chatUpdater = new ChatUpdater({ token: process.env.TOKEN })
 
 app.post('/message.event', (request, response) => {
   const { challenge, event: { channel, edited, ts, text, user } = {} } = request.body
