@@ -39,6 +39,9 @@ app.post('/message.event', (request, response) => {
 // })
 
 const myDB = new Store('data', { type: 'single' })
+myDB.saveSync('testtest', 'fwerfwerfer')
+const storedValue = myDB.readSync('testtest')
+console.log('#44', { storedValue })
 const ASCII = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
 const randomString = ({ length = 6, chars = ASCII } = {}) => {
   let result = ''
