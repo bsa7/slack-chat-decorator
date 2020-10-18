@@ -20,8 +20,14 @@ const installer = new InstallProvider({
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   stateSecret: 'my-state-secret',
   installationStore: {
-    storeInstallation: (installation) => myDB.set(installation.team.id, installation),
-    fetchInstallation: (InstallQuery) => myDB.get(InstallQuery.teamId),
+    storeInstallation: (installation) => {
+      console.log('storeInstallation#24', { installation })
+      myDB.set(installation.team.id, installation)
+    },
+    fetchInstallation: (InstallQuery) => {
+      console.log('InstallQuery#28', { InstallQuery })
+      return myDB.get(InstallQuery.teamId)
+    },
   },
   // installationStore: {
   //   storeInstallation: async (installation) => {
