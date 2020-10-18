@@ -11,14 +11,15 @@ const installer = new InstallProvider({
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   stateSecret: 'my-state-secret',
   installationStore: {
-    storeInstallation: (installation) => {
-      console.log('storeInstallation#11', { installation })
-      myDB.set(installation.team.id, installation)
-      return
+    storeInstallation: async (installation) => {
+      console.log('storeInstallation#15', { installation })
+      await myDB.set(installation.team.id, installation)
     },
     fetchInstallation: async (installQuery) => {
-      console.log('fetchInstallation#16', { installQuery })
-      return await myDB.get(installQuery.teamId)
+      console.log('fetchInstallation#19', { installQuery })
+      const result = await myDB.get(installQuery.teamId)
+      console.log('#21', { 'installQuery.teamId': installQuery.teamId, result })
+      return result
     },
   },
   stateStore: {
@@ -37,9 +38,10 @@ const installer = new InstallProvider({
     // verifyStateParam's first argument is a date object and the second argument is a string representing the state
     // verifyStateParam is expected to return an object representing installUrlOptions
     verifyStateParam: async (date, state) => {
-      console.log('#36', { date, state })
       // fetch saved installOptions from DB using state reference
-      return await myDB.get(state)
+      const result = await myDB.get(state)
+      console.log('#36', { date, state, result })
+      return result
     }
   }
 })
