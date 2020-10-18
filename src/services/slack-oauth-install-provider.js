@@ -1,5 +1,7 @@
 const { randomString } = require('../lib/string-helpers')
-const { myDB } = require('../services/my-db')
+const Keyv = require('keyv')
+const myDB = new Keyv('redis://localhost:6379')
+// const { myDB } = require('../services/my-db')
 const { InstallProvider } = require('@slack/oauth')
 
 console.log('#5', {
