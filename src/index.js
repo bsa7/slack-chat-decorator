@@ -23,19 +23,17 @@ app.post('/message.event', (request, response) => {
   response.send({ challenge, flag: 'updated' })
 })
 
-app.get('/oauth.install', async (request, response, next) => {
-  const url = await installer.generateInstallUrl({
-    // scopes: ['channels:read', 'groups:read', 'channels:manage', 'chat:write', 'incoming-webhook'],
-    // scopes: ['chat:write:user']
-    scopes: ['chat:write']
-  })
-  console.log('get/oauth.install#32', { url })
+// app.get('/oauth.install', async (request, response, next) => {
+//   const url = await installer.generateInstallUrl({
+//     scopes: ['chat:write']
+//   })
+//   console.log('get/oauth.install#32', { url })
 
-  response.redirect(url)
-})
+//   response.redirect(url)
+// })
 
-app.get('/oauth.redirect', async (request, response) => {
-  console.log('get/oauth.redirect#42')
+app.get('/oauth.install', async (request, response) => {
+  console.log('get/oauth.install#42')
   await installer.handleCallback(request, response)
 })
 
