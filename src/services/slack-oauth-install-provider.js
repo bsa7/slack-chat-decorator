@@ -2,6 +2,10 @@ const { randomString } = require('../lib/string-helpers')
 const { myDB } = require('../services/my-db')
 const { InstallProvider } = require('@slack/oauth')
 
+console.log('#5', {
+  clientId: process.env.SLACK_CLIENT_ID,
+  clientSecret: process.env.SLACK_CLIENT_SECRET,
+})
 const installer = new InstallProvider({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
