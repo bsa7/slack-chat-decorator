@@ -31,7 +31,7 @@ app.get('/oauth.install', async (request, response, next) => {
     scopes: ['chat:write']
   })
 
-  response.send({ redirectUrl: url })
+  response.redirect(url)
 })
 
 app.get('/oauth.redirect', async (request, response) => {
