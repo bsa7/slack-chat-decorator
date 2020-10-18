@@ -16,8 +16,8 @@ const installer = new InstallProvider({
       myDB.set(installation.team.id, installation)
       return;
     },
-    fetchInstallation: async (InstallQuery) => {
-      return await myDB.get(InstallQuery.teamId)
+    fetchInstallation: (InstallQuery) => {
+      return myDB.get(InstallQuery.teamId)
     },
   },
   // installationStore: {

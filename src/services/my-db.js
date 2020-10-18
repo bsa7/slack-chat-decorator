@@ -9,7 +9,7 @@ class RedisAdapter {
     await this.connection.set(key, JSON.stringify(value))
   }
 
-  getSync = async (key) => {
+  get = async (key) => {
     return JSON.parse(await this.connection.get(key))
   }
 }
