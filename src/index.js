@@ -32,11 +32,11 @@ app.post('/message.event', (request, response) => {
 //   response.redirect(url)
 // })
 
-app.get('/oauth.install', async (request, response) => {
-  const url = await installer.generateInstallUrl({
-    scopes: ['chat:write']
-  })
-  console.log('get/oauth.install#39', { url })
+app.get('/oauth.redirect', async (request, response) => {
+  // const url = await installer.generateInstallUrl({
+  //   scopes: ['chat:write']
+  // })
+  console.log('get/oauth.redirect#39', { url })
   await installer.handleCallback(request, response)
 })
 
