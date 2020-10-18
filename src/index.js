@@ -1,4 +1,6 @@
-require('dotenv').config({ path: '../config' })
+const path = require('path')
+require('dotenv').config({ path: path.resolve(process.cwd(), './config/.env') })
+
 const { app } = require('./services/express-server')
 const { installer } = require('./services/slack-oauth-install-provider')
 const { ChatDecorator } = require('./lib/chat-decorator')

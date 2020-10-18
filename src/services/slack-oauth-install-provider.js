@@ -1,5 +1,5 @@
 const { randomString } = require('../lib/string-helpers')
-const { redisClient } = require('../services/redis-client')
+const { myDB } = require('../services/my-db')
 const { InstallProvider } = require('@slack/oauth')
 
 const installer = new InstallProvider({
@@ -9,12 +9,12 @@ const installer = new InstallProvider({
   installationStore: {
     storeInstallation: (installation) => {
       console.log('storeInstallation#11', { installation })
-      redisClient.set(installation.team.id, installation)
+      myDB.set(installation.team.id, installation)
       return
     },
     fetchInstallation: async (installQuery) => {
       console.log('fetchInstallation#16', { installQuery })
-      return await redisClient.get(installQuery.teamId)
+      return await myDB.get(installQuery.teamId)
     },
   },
   stateStore: {
@@ -26,7 +26,7 @@ const installer = new InstallProvider({
       // save installOptions to cache/db
       const randomState = randomString()
       console.log('generateStateParam#28', { installUrlOptions, date, randomState })
-      redisClient.set(randomState, installUrlOptions)
+      myDB.set(randomState, installUrlOptions)
       // return a state string that references saved options in DB
       return randomState
     },
@@ -35,7 +35,7 @@ const installer = new InstallProvider({
     verifyStateParam: async (date, state) => {
       console.log('#36', { date, state })
       // fetch saved installOptions from DB using state reference
-      return await redisClient.get(state)
+      return await myDB.get(state)
     }
   }
 })
