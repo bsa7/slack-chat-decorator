@@ -1,7 +1,6 @@
 require('dotenv').config({ path: '../config' })
 const { app } = require('./services/express-server')
-const { redisClient } = require('./services/redis-client')
-// const { installer } = require('./services/slack-oauth-install-provider')
+const { installer } = require('./services/slack-oauth-install-provider')
 const { ChatDecorator } = require('./lib/chat-decorator')
 const { ChatUpdater } = require('./lib/chat-updater')
 
@@ -21,15 +20,6 @@ app.post('/message.event', (request, response) => {
   chatUpdater.run({ channel, text: textDecorated, ts, user })
   response.send({ challenge, flag: 'updated' })
 })
-
-// const key = 'testtest'
-// console.log('#37', { key })
-// redisClient.set(key, 'fwerfwerfer', (setError, setData) => {
-//   console.log('#49', { setError, setData })
-//   redisClient.get(key, (getError, getData) => {
-//     console.log('#51', { getError, getData })
-//   })
-// })
 
 app.get('/oauth.redirect', (request, response) => {
   installer.handleCallback(request, response)
