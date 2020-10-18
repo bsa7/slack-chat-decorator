@@ -33,7 +33,10 @@ app.post('/message.event', (request, response) => {
 // })
 
 app.get('/oauth.install', async (request, response) => {
-  console.log('get/oauth.install#42')
+  const url = await installer.generateInstallUrl({
+    scopes: ['chat:write']
+  })
+  console.log('get/oauth.install#39', { url })
   await installer.handleCallback(request, response)
 })
 
