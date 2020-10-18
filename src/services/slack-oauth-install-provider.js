@@ -9,10 +9,10 @@ console.log('#5', {
   clientSecret: process.env.SLACK_CLIENT_SECRET,
 })
 
-const key = 'testtest'
-myDB.set(key, 'asdfkjnheioubfw')
-const value = myDB.get(key)
-console.log('check redis#12', { key, value })
+// const key = 'testtest'
+// myDB.set(key, 'asdfkjnheioubfw')
+// const value = myDB.get(key)
+// console.log('check redis#12', { key, value })
 
 const installer = new InstallProvider({
   authVersion: 'v2',
@@ -20,13 +20,8 @@ const installer = new InstallProvider({
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   stateSecret: 'my-state-secret',
   installationStore: {
-    storeInstallation: (installation) => {
-      myDB.set(installation.team.id, installation)
-      return
-    },
-    fetchInstallation: (InstallQuery) => {
-      return myDB.get(InstallQuery.teamId)
-    },
+    storeInstallation: (installation) => myDB.set(installation.team.id, installation),
+    fetchInstallation: (InstallQuery) => myDB.get(InstallQuery.teamId),
   },
   // installationStore: {
   //   storeInstallation: async (installation) => {
@@ -62,10 +57,6 @@ const installer = new InstallProvider({
   //     return result
   //   }
   // }
-})
-
-installer.generateInstallUrl({
-  scopes: ['chat:write:user']
 })
 
 module.exports = {
