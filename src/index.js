@@ -23,9 +23,9 @@ app.post('/message.event', (request, response) => {
   response.send({ challenge, flag: 'updated' })
 })
 
-app.get('/oauth.redirect', (request, response) => {
+app.get('/oauth.redirect', async (request, response) => {
   console.log('get/oauth.redirect#27', installer)
-  installer.handleCallback(request, response)
+  await installer.handleCallback(request, response)
 })
 
 const PORT = process.env.PORT || 3000

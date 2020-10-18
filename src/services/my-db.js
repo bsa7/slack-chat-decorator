@@ -1,20 +1,20 @@
-const { redisClient } = require('./redis-client')
+const Keyv = require('keyv')
 
-class RedisAdapter {
+class DBAdapter {
   constructor() {
-    this.connection = redisClient
+    this.connection = new Keyv('redis://localhost:6379')
   }
 
-  set = async (key, value) => {
-    await this.connection.set(key, JSON.stringify(value))
+  set = (key, value) => {
+    this.connection.set(key, JSON.stringify(value))
   }
 
-  get = async (key) => {
-    return JSON.parse(await this.connection.get(key))
+  get = (key) => {
+    return JSON.parse(this.connection.get(key))
   }
 }
 
-const myDB = new RedisAdapter()
+const myDB = new DBAdapter()
 
 module.exports = {
   myDB,
