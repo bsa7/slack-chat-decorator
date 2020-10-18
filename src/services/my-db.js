@@ -10,7 +10,9 @@ class DBAdapter {
   }
 
   get = (key) => {
-    return JSON.parse(this.connection.get(key))
+    const value = this.connection.get(key)
+    if (/^[\{\]]/.test(value)) return JSON.parse(value)
+    return value
   }
 }
 
