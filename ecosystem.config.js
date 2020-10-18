@@ -11,7 +11,7 @@ module.exports = {
       repo: 'git@github.com:r72cccp/slack-chat-decorator.git',
       path: '/home/slon/projects/slack-chat-decorator',
       'pre-deploy-local': '',
-      'post-deploy': 'npm install && pm2 reload ecosystem.config.js --env production',
+      'post-deploy': 'cp ../../deploy/.env config/.env && npm install && pm2 reload ecosystem.config.js --env production',
       'pre-setup': ''
     }
   }
