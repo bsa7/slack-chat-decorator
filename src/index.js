@@ -24,7 +24,7 @@ app.post('/message.event', (request, response) => {
 })
 
 app.get('/oauth.redirect', (request, response) => {
-  console.log('get/oauth.redirect#27')
+  console.log('get/oauth.redirect#27', installer)
   installer.handleCallback(request, response)
 })
 
