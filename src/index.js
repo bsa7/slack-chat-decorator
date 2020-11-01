@@ -10,9 +10,10 @@ const chatDecorator = new ChatDecorator({
   '\\b(ASMS\\-\\d+)\\b': '[$1](https://jira.funbox.ru/browse/$1)',
 })
 const chatUpdater = new ChatUpdater({ token: process.env.TOKEN })
+
 app.post('/message.event', (request, response) => {
   const { challenge, event: { channel, edited, ts, text, user } = {} } = request.body
-  console.log('#17', { challenge, channel, ts, text, user, edited, request_body: request.body })
+  console.log('#16', { challenge, channel, ts, text, user, edited, request_body: request.body })
   if (edited || !text) {
     response.send({ challenge, flag: 'ignored' })
     return
@@ -36,7 +37,7 @@ app.get('/oauth.redirect', async (request, response) => {
   const url = await installer.generateInstallUrl({
     scopes: ['chat:write']
   })
-  console.log('get/oauth.redirect#39', { url }, request, response)
+  console.log('get/oauth.redirect#40', { url }, request, response)
   await installer.handleCallback(request, response)
 })
 

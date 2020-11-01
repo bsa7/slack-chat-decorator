@@ -2,7 +2,7 @@ const Slack = require('slack-node')
 
 class ChatUpdater {
   constructor({ token }) {
-    console.log('ChatUpdater#6', { token })
+    console.log('ChatUpdater#5', { token })
     this.slack = new Slack(token)
   }
 
@@ -13,7 +13,7 @@ class ChatUpdater {
       text,
       ts,
    }, (error, response) => {
-      console.log('#16', { channel, text, ts, error, response })
+      console.log('ChatUpdater#16', { channel, text, ts, error, response })
    })
   }
 }
