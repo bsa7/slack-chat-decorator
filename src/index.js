@@ -37,7 +37,7 @@ app.get('/oauth.redirect', async (request, response) => {
   const url = await installer.generateInstallUrl({
     scopes: ['chat:write']
   })
-  console.log('get/oauth.redirect#40', { url }, request, response)
+  console.log('get/oauth.redirect#40', { url })
   await installer.handleCallback(request, response)
 })
 
