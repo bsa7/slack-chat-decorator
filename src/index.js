@@ -9,7 +9,7 @@ const { ChatUpdater } = require('./lib/chat-updater')
 const chatDecorator = new ChatDecorator({
   '\\b(ASMS\\-\\d+)\\b': '[$1](https://jira.funbox.ru/browse/$1)',
 })
-const chatUpdater = new ChatUpdater({ token: process.env.TOKEN })
+const chatUpdater = new ChatUpdater({ token: process.env.API_TOKEN })
 
 app.post('/message.event', (request, response) => {
   const { challenge, event: { channel, edited, ts, text, user } = {} } = request.body
