@@ -33,12 +33,13 @@ app.post('/message.event', (request, response) => {
 //   response.redirect(url)
 // })
 
-app.get('/oauth.redirect', async (request, response) => {
-  const url = await installer.generateInstallUrl({
-    scopes: ['chat:write']
-  })
+installer.generateInstallUrl({
+  scopes: ['chat:write']
+})
+
+app.get('/oauth.redirect', (request, response) => {
   console.log('get/oauth.redirect#40', { url })
-  await installer.handleCallback(request, response)
+  installer.handleCallback(request, response)
 })
 
 const PORT = process.env.PORT || 3000

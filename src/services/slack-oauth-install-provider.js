@@ -15,18 +15,18 @@ console.log('#5', {
 // console.log('check redis#12', { key, value })
 
 const installer = new InstallProvider({
-  authVersion: 'v2',
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   stateSecret: 'my-state-secret',
   installationStore: {
     storeInstallation: (installation) => {
-      console.log('storeInstallation#24', { installation })
+      console.log('InstallProvider.storeInstallation#24', { installation })
       myDB.set(installation.team.id, installation)
     },
     fetchInstallation: (InstallQuery) => {
-      console.log('InstallQuery#28', { InstallQuery })
-      return myDB.get(InstallQuery.teamId)
+      const value = myDB.get(InstallQuery.teamId)
+      console.log('InstallProvider.fetchInstallation#28', { InstallQuery, value })
+      return value
     },
   },
 })
