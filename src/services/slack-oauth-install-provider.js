@@ -2,7 +2,7 @@ const { randomString } = require('../lib/string-helpers')
 const Keyv = require('keyv')
 const myDB = new Keyv('redis://localhost:6379')
 // const { myDB } = require('../services/my-db')
-const { InstallProvider } = require('@slack/oauth')
+const { InstallProvider, LogLevel } = require('@slack/oauth')
 
 console.log('#5', {
   clientId: process.env.SLACK_CLIENT_ID,
@@ -17,7 +17,7 @@ console.log('#5', {
 const installer = new InstallProvider({
   clientId: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
-  stateSecret: 'my-state-secret',
+  logLevel: LogLevel.DEBUG,
   installationStore: {
     storeInstallation: (installation) => {
       console.log('InstallProvider.storeInstallation#24', { installation })
@@ -29,6 +29,7 @@ const installer = new InstallProvider({
       return value
     },
   },
+  stateSecret: 'my-state-secret',
 })
 
 module.exports = {
