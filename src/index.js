@@ -38,7 +38,7 @@ installer.generateInstallUrl({
 })
 
 app.get('/oauth.redirect', (request, response) => {
-  console.log('get/oauth.redirect#40', { url })
+  console.log('get/oauth.redirect#41')
   installer.handleCallback(request, response)
 })
 
